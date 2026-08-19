@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src data:; connect-src 'none'; frame-src 'none'">
+  <link rel="stylesheet" href="katex.min.css">
+  <script src="katex.min.js"></script>
+  <style>
+    html,body{margin:0;padding:0;background:#fff;color:#080808}
+    body{display:flex;align-items:center;justify-content:center;min-height:150px;overflow:auto}
+    #formula{padding:16px;max-width:100%;box-sizing:border-box;font-size:1.18rem}
+  </style>
+</head>
+<body>
+  <div id="formula" role="math" aria-label="Formula preview"></div>
+  <script>
+    function renderLatex(value, displayMode) {
+      var target = document.getElementById('formula');
+      var options = {displayMode: !!displayMode, throwOnError: true, trust: false, strict: 'warn', output: 'htmlAndMathml'};
+      try {
+        katex.render(value, target, options);
+        return null;
+      } catch (error) {
+        options.throwOnError = false;
+        katex.render(value, target, options);
+        return String(error && error.message ? error.message : error).slice(0, 240);
+      }
+    }
+  </script>
+</body>
+</html>
